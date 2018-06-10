@@ -144,14 +144,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="contacts.c" />
+    <ClCompile Include="createMenu.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="menu.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data.txt" />
+    <None Include="Data.dat" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="contacts.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

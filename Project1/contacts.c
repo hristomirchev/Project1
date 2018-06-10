@@ -1,65 +1,83 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "contacts.h"
 #include <conio.h>
 
-/*	@brief:		Add contact in the file
-@param:		contacts_s* contact
-@retval:	integer
-*/
-int Contacts_Add(contacts_s* contact)
+/* @brief	: Initialize the struct of contacts.
+ * @param	: contacts_s *contact
+ * @retval	: None 
+ */
+void Contacts_Init(struct contacts_s *contact)
 {
-	FILE* file;
-	fopen_s(&file, "Data.txt", "a");
+	strcpy_s(contact->firstName, sizeof("Name"),"Name");
+	strcpy_s(contact->lastName, sizeof("Last"), "Last");
+	strcpy_s(contact->EGN, sizeof("123467"), "123467");
+	strcpy_s(contact->phoneNumber, sizeof("12345"), "12345");
+}
 
-	char buffer[200] = "";
-	strcat_s(buffer, sizeof(buffer), contact->firstName);
-	strcat_s(buffer, sizeof(buffer), "; ");
-	strcat_s(buffer, sizeof(buffer), contact->lastName);
-	strcat_s(buffer, sizeof(buffer), "; ");
-	strcat_s(buffer, sizeof(buffer), contact->phoneNumber);
-	strcat_s(buffer, sizeof(buffer), "; ");
-	strcat_s(buffer, sizeof(buffer), contact->EGN);
-	strcat_s(buffer, sizeof(buffer), "; \n");
+/* @brief	: Add contact in the file
+ * @param:	: contacts_s *contact
+ * @retval	: integer
+*/
+void Contacts_Add()
+{
+	int size;
+	FILE *file;
+	fopen_s(&file, "Data.dat", "a");
+
+	fseek(file, 0, SEEK_END);
+	size = ftell(file);
 
 	if (file != NULL)
 	{
-		fwrite(buffer, sizeof(char), strlen(buffer), file);
+		if (size != 0)
+		{
+			fwrite("\r", sizeof("\r"), 1, file);
+		}
+		fwrite(&Contact, sizeof(struct contacts_s), 1, file);
 		fclose(file);
 	}
-
-	return 0;
 }
 
-void Contacts_Read(contacts_s* contact)
+/* @brief	: Read Contacts from file.
+ * @param	: contacts_s *contact
+ * @retval	: None
+ */
+void Contacts_Read()
 {
 	FILE *file;
-	fopen_s(&file, "Data.txt", "r");
+	fopen_s(&file, "Data.dat", "r");
 
-	char buffer[200] = "";
-	fscanf_s(file, "%s", buffer, sizeof(buffer));
-	printf(" 1. %s", buffer);
-
-	_getch();
+	system("cls");
+	while (fread(&Contact, sizeof(struct contacts_s), 3, file))
+	{
+		printf("\n First Name\t: %s", Contact.firstName);
+		printf("\n Last Name\t: %s", Contact.lastName);
+		printf("\n PhoneNumber\t: %s", Contact.phoneNumber);
+		printf("\n EGN\t\t: %s\n", Contact.EGN);
+	}
+	getchar();
 }
 
-int Contacts_Edit(contacts_s* contact)
+int Contacts_Edit(struct contacts_s *contact)
 {
 	return 0;
 }
 
-int Contacts_Remove(contacts_s* contact)
+int Contacts_Remove(struct contacts_s *contact)
 {
 	return 0;
 }
 
-int Contacts_Save(contacts_s* contact)
+int Contacts_Save(struct contacts_s *contact)
 {
 	return 0;
 }
 
-int Contacts_Search(contacts_s* contact)
+int Contacts_Search(const char *searchString, struct contacts_s *contact)
 {
-	//char* searchString;
+	//char *searchString;
 
 	return 0;
 }

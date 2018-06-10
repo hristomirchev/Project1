@@ -1,46 +1,28 @@
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "contacts.h"
 #include "main.h"
+#include "menu.h"
 
-
-int DisplayContacts(contacts_s* contact)
+void ApplicationExit()
 {
-	return 0;
+	exit(0);
 }
-
 
 int main()
 {
-	Contacts[0].firstName = "Name";
-	Contacts[0].lastName = "Last";
-	Contacts[0].EGN = "12345";
-	Contacts[0].phoneNumber = "1234";
+	Contacts_Init(&Contact);
 
-	Contacts_Add(&Contacts[0]);
+	Menu_Init();
+	MenuInit_Main();
+	Menu_Draw(&MenuState);
 
-
-	printf(" -- Main Menu -- \r\n");
-	printf(" 1. Add contact \r\n");
-	printf(" 2. Edit contact \r\n");
-	printf(" 3. Delete contact \r\n");
-	printf(" 4. Search Contact \r\n");
-	printf(" 5. View all contacts \r\n\r\n");
-
-	printf(" 0. Close application \r\n\r\n");
-
-	printf(" Select an option: ");
-	char ch;
-	ch = getchar();
-
-	switch (ch)
+	while (1)
 	{
-	case '1':
-		Contacts_Read(&Contacts);
-		break;
-
+		Menu_Walk();
 	}
 
 	return 0;

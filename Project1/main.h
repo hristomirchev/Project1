@@ -3,17 +3,24 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-typedef struct
-{
-	const char* firstName;
-	const char* lastName;
-	const char* phoneNumber;
-	const char* EGN;
-} contacts_s;
+#define MAX_CONTACTS 100
 
-contacts_s Contacts[100];
+#define UP		72
+#define DOWN	80
+#define RETURN		13
+#define ESC		27
+
+struct contacts_s
+{
+	char firstName[20];
+	char lastName[20];
+	char phoneNumber[12];
+	char EGN[10];
+};
+
+struct contacts_s Contact;
 
 /* Private function prototypes ---------------------------------------------- */
-int DisplayContacts(contacts_s* contacts);
+void ApplicationExit();
 
 #endif /* MAIN_H_ */
