@@ -46,7 +46,8 @@ void Menu_PrintNormal(const char *message);
 void Menu_PrintSpecial(const char *message);
 void Menu_PrintNextLine();
 
-void MenuInit_Main();
+void Menu_InitMain();
+void Menu_InitEditContacts();
 
 /* Menu Structure ----------------------------------------------------------- */
 struct menuItem_s node_Main1;
@@ -59,8 +60,10 @@ struct menuItem_s node_Main7;
 struct menuItem_s *elements_Main[7];
 struct menu_s menu_Main;
 
-struct menuItem_s node_Contacts[MAX_CONTACTS];
-struct menuItem_s elements_Contacts[MAX_CONTACTS];
+struct menuItem_s node_EditContact1;
+struct menuItem_s node_Editcontact2;
+struct menuItem_s *elements_EditContact[2];
+struct menu_s menu_EditContact;
 
 struct menuState_s MenuState;
 

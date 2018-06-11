@@ -88,6 +88,9 @@ void Contacts_Read()
 		printf("%*s | ", 16, Contacts[i].phoneNumber);
 		printf("%*s", 11, Contacts[i].EGN);
 	}
+	printf("\n---------------------+-----------------------+------------------+-------------");
+
+	printf("\n\nPress ESC key to go back.");
 	while (_getch() != ESC);
 }
 
@@ -154,14 +157,43 @@ void Contacts_Delete()
 	Contacts_Init();
 }
 
-int Contacts_Save(struct contacts_s *contact)
+void Contacts_Search()
 {
-	return 0;
+	system("cls");
+
+	unsigned char searchString[20];
+	printf("Search contact: ");
+	scanf("%19s", searchString);
+
+	system("cls");
+
+	printf("Total contacts: %d\n\n", lastRecord);
+
+	const char *firstName = "First Name";
+	printf("%-20s | %-21s | %-16s | %-12s\n", "First Name", "Last Name", "Phone Number", "EGN");
+	printf("---------------------+-----------------------+------------------+-------------");
+
+	int foundContacts = 0;
+	for (int i = 0; i < lastRecord; i++)
+	{
+		if (strcmp(Contacts[i].firstName, searchString) == 0 ||
+			strcmp(Contacts[i].lastName, searchString) == 0)
+		{
+			printf("\n%*s | ", 20, Contacts[i].firstName);
+			printf("%*s | ", 21, Contacts[i].lastName);
+			printf("%*s | ", 16, Contacts[i].phoneNumber);
+			printf("%*s", 11, Contacts[i].EGN);
+			foundContacts++;
+		}
+	}
+	printf("\n---------------------+-----------------------+------------------+-------------");
+	printf("\n\nFound: %d", foundContacts);
+
+	printf("\n\nPress ESC key to go back.");
+	while (_getch() != ESC);
 }
 
-int Contacts_Search(const char *searchString, struct contacts_s *contact)
+void Contacts_EditByID()
 {
-	//char *searchString;
 
-	return 0;
 }

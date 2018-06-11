@@ -2,7 +2,7 @@
 #include "main.h"
 #include "contacts.h"
 
-void MenuInit_Main()
+void Menu_InitMain()
 {
 	node_Main1.name = "Add contact";
 	node_Main1.handlerFunc = Contacts_Add;
@@ -10,14 +10,14 @@ void MenuInit_Main()
 
 	node_Main2.name = "Edit contact";
 	node_Main2.handlerFunc = NULL;
-	node_Main2.child = NULL;
+	node_Main2.child = &menu_EditContact;
 
 	node_Main6.name = "Delete Contacts";
 	node_Main6.handlerFunc = Contacts_ConfirmDelete;
 	node_Main6.child = NULL;
 
 	node_Main3.name = "Search contact";
-	node_Main3.handlerFunc = NULL;
+	node_Main3.handlerFunc = Contacts_Search;
 	node_Main3.child = NULL;
 
 	node_Main4.name = "View all contacts";
@@ -45,15 +45,20 @@ void MenuInit_Main()
 	menu_Main.menuArray = elements_Main;
 }
 
-void Menu_InitContacts()
+void Menu_InitEditContact()
 {
-	for (int i = 0; i < lastRecord; i++)
-	{
-		unsigned char buffer[200] = "";
-		strcpy(Contacts[i].firstName)
-		node_Contacts[i].name = Contacts[i].firstName;
-		node_Contacts[i].handlerFunc = NULL;
-		node_Contacts[i].child = NULL;
-	}
+	node_EditContact1.name = "Edit by ID";
+	node_EditContact1.handlerFunc = NULL;
+	node_EditContact1.child = NULL;
 
+	node_Editcontact2.name = "Search in contacts";
+	node_Editcontact2.handlerFunc = NULL;
+	node_Editcontact2.child = NULL;
+
+	elements_EditContact[0] = &node_EditContact1;
+	elements_EditContact[1] = &node_Editcontact2;
+
+	menu_EditContact.length = 2;
+	menu_EditContact.parent = &menu_Main;
+	menu_EditContact.menuArray = elements_EditContact;
 }

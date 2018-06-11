@@ -11,7 +11,10 @@
 void ApplicationExit()
 {
 	system("cls");
-	printf("Do you want to exit and save the changes? [Y/n/c]: ");
+	printf("'Y/y/Return'\t - Save and exit");
+	printf("\n'N/n'\t\t - Exit without saving");
+	printf("\n'C/c/ESC'\t - Cancel");
+	printf("\n\nDo you want to exit? [Y/n/c]: ");
 
 	int esc = 0;
 	while(esc == 0)
@@ -26,6 +29,9 @@ void ApplicationExit()
 			esc = 1;
 			break;
 		case 'c':
+			esc = 1;
+			break;
+		case 'C':
 			esc = 1;
 			break;
 		case 'y':
@@ -51,7 +57,6 @@ int main()
 	Contacts_Init(&Contacts);
 
 	Menu_Init();
-	MenuInit_Main();
 	Menu_Draw(&MenuState);
 	Contacts_ReadFromFile();
 

@@ -5,8 +5,11 @@
 
 void Menu_Init()
 {
+	Menu_InitMain();
+	Menu_InitEditContact();
+
 	MenuState.top = 0;
-	MenuState.MAX_ROWS = 10;
+	MenuState.MAX_ROWS = 20;
 	MenuState.last_top = 0;
 	MenuState.currentItem = 0;
 	MenuState.last_currentItem = 0;
