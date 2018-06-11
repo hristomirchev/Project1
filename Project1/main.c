@@ -6,10 +6,44 @@
 #include "contacts.h"
 #include "main.h"
 #include "menu.h"
+#include "contacts.h"
 
 void ApplicationExit()
 {
-	exit(0);
+	system("cls");
+	printf("Do you want to exit and save the changes? [Y/n/c]: ");
+
+	int esc = 0;
+	while(esc == 0)
+	{
+		switch (getch())
+		{
+		case RETURN:
+			Contacts_WriteToFile();
+			exit(0);
+			break;
+		case ESC:
+			esc = 1;
+			break;
+		case 'c':
+			esc = 1;
+			break;
+		case 'y':
+			Contacts_WriteToFile();
+			exit(0);
+			break;
+		case 'Y':
+			Contacts_WriteToFile();
+			exit(0);
+			break;
+		case 'n':
+			exit(0);
+			break;
+		case 'N':
+			exit(0);
+			break;
+		}
+	}
 }
 
 int main()
@@ -19,6 +53,7 @@ int main()
 	Menu_Init();
 	MenuInit_Main();
 	Menu_Draw(&MenuState);
+	Contacts_ReadFromFile();
 
 	while (1)
 	{

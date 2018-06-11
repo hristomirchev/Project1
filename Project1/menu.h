@@ -7,6 +7,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include "main.h"
 
 typedef struct menuState_s
 {
@@ -56,8 +57,10 @@ struct menuItem_s node_Main5;
 struct menuItem_s node_Main6;
 struct menuItem_s node_Main7;
 struct menuItem_s *elements_Main[7];
-
 struct menu_s menu_Main;
+
+struct menuItem_s node_Contacts[MAX_CONTACTS];
+struct menuItem_s elements_Contacts[MAX_CONTACTS];
 
 struct menuState_s MenuState;
 

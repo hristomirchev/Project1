@@ -13,7 +13,7 @@ void MenuInit_Main()
 	node_Main2.child = NULL;
 
 	node_Main6.name = "Delete Contacts";
-	node_Main6.handlerFunc = Contacts_Remove;
+	node_Main6.handlerFunc = Contacts_ConfirmDelete;
 	node_Main6.child = NULL;
 
 	node_Main3.name = "Search contact";
@@ -43,4 +43,17 @@ void MenuInit_Main()
 	menu_Main.length = 7;
 	menu_Main.parent = NULL;
 	menu_Main.menuArray = elements_Main;
+}
+
+void Menu_InitContacts()
+{
+	for (int i = 0; i < lastRecord; i++)
+	{
+		unsigned char buffer[200] = "";
+		strcpy(Contacts[i].firstName)
+		node_Contacts[i].name = Contacts[i].firstName;
+		node_Contacts[i].handlerFunc = NULL;
+		node_Contacts[i].child = NULL;
+	}
+
 }

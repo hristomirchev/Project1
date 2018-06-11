@@ -5,22 +5,24 @@
 
 #include "main.h"
 
-struct contacts_s
+typedef struct contacts_s
 {
 	char firstName[20];
 	char lastName[20];
 	char phoneNumber[15];
 	char EGN[11];
-};
+} contacts;
 
 struct contacts_s Contacts[MAX_CONTACTS];
 
 /* Private function prototypes ---------------------------------------------- */
 void Contacts_Init();
 void Contacts_Add();
-void Contacts_Remove();
+void Contacts_Delete(); 
+void Contacts_ConfirmDelete();
 void Contacts_Read();
 
 void Contacts_WriteToFile();
+void Contacts_ReadFromFile();
 
 #endif /* CONTACTS_H_ */

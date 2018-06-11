@@ -11,12 +11,13 @@
 void Contacts_Init()
 {
 	lastRecord = 0;
-	for (int i = 0; i < 100; i++)
+
+	for (int i = 0; i < MAX_CONTACTS; i++)
 	{
 		strcpy(Contacts[i].firstName, "");
 		strcpy(Contacts[i].lastName, "");
-		strcpy(Contacts[i].EGN, "");
 		strcpy(Contacts[i].phoneNumber, "");
+		strcpy(Contacts[i].EGN, "");
 	}
 }
 
@@ -28,7 +29,6 @@ void Contacts_Add()
 {
 	system("cls");
 
-	char buffer[21] = "";
 	printf(" Enter first name: ");
 	scanf("%20s", Contacts[lastRecord].firstName);
 	printf(" Enter last name: ");
@@ -48,18 +48,17 @@ void Contacts_WriteToFile()
 {
 	int size;
 	FILE *file;
-	fopen_s(&file, "Data.dat", "w");
+	fopen_s(&file, "Data.dat", "wb");
 
-	fseek(file, 0, SEEK_END);
-	size = ftell(file);
+
 
 	if (file != NULL)
 	{
-		if (size != 0)
-		{
-			fwrite("\r", sizeof("\r"), 1, file);
-		}
-		fwrite(&Contacts, sizeof(struct contacts_s), 4, file);
+		fseek(file, 0, SEEK_END);
+		size = ftell(file);
+
+		//if (size != 0) fwrite("\r", sizeof("\r"), 1, file);
+		fwrite(&Contacts, sizeof(struct contacts_s), lastRecord, file);
 		fclose(file);
 		
 	}
@@ -71,27 +70,42 @@ void Contacts_WriteToFile()
  */
 void Contacts_Read()
 {
-	FILE *file;
-	fopen_s(&file, "Data.dat", "r");
-
 	system("cls");
 
+	printf("Total contacts: %d\n\n", lastRecord);
+
 	const char *firstName = "First Name";
-	printf("%20s%20s%15s%15s\n", "First Name", "Last Name", "Phone Number", "EGN");
-
-	int i = 1;
-
+	printf("%-20s | %-21s | %-16s | %-12s\n", "First Name", "Last Name", "Phone Number", "EGN");
+	printf("---------------------+-----------------------+------------------+-------------");
 	//fscanf("%*s, %*s, %*s, %*s", 20, Contacts[i].firstName, 20, Contacts[i].lastName, 15, Contacts[i].phoneNumber, 11, Contacts[i].EGN);
-
+/*
 	fread(&Contacts, sizeof(Contacts), 1, file);
+	{*/
+	for (int i = 0; i < lastRecord; i++)
 	{
-		printf("\n%*s", 20, Contacts[i].firstName);
-		printf("%*s", 20, Contacts[i].lastName);
-		printf("%*s", 15, Contacts[i].phoneNumber);
+		printf("\n%*s | ", 20, Contacts[i].firstName);
+		printf("%*s | ", 21, Contacts[i].lastName);
+		printf("%*s | ", 16, Contacts[i].phoneNumber);
 		printf("%*s", 11, Contacts[i].EGN);
 	}
-	fclose(file);
 	while (_getch() != ESC);
+}
+
+void Contacts_ReadFromFile()
+{
+	size_t count = 0;
+
+	FILE *file;
+	fopen_s(&file, "Data.dat", "rb");
+
+	for (int i = 0; i < MAX_CONTACTS; i++)
+	{
+		fread(&Contacts, sizeof(contacts), MAX_CONTACTS, file);
+		if (Contacts[i].firstName[0] != '\0') lastRecord++;
+		//Contacts[i] = *p;
+	}
+
+	fclose(file);
 }
 
 int Contacts_Edit(struct contacts_s *contact)
@@ -99,11 +113,45 @@ int Contacts_Edit(struct contacts_s *contact)
 	return 0;
 }
 
-void Contacts_Remove()
+void Contacts_ConfirmDelete()
 {
-	FILE *file;
-	fopen_s(&file, "Data.dat", "w");
+	system("cls");
+	printf("Are you sure you want to delete all the contacts? [Y/n]\nWaiting for reaction: ");
+
+	switch (getchar())
+	{
+	case 'y':
+		Contacts_Delete();
+		system("cls");
+		printf("Contacts are successfully deleted!\n\n");
+		system("pause");
+		break;
+	case 'Y':
+		Contacts_Delete();
+		system("cls");
+		printf("Contacts are successfully deleted!\n\n");
+		system("pause");
+		break;
+	case 'n':
+		system("cls");
+		printf("Contacts are not deleted!\n\n");
+		system("pause");
+		break;
+	case 'N':
+		system("cls");
+		printf("Contacts are not deleted!\n\n");
+		system("pause");
+		break;
+	}
+}
+
+void Contacts_Delete()
+{
+	FILE * file;
+	fopen_s(&file, "Data.dat", "wb");
 	fclose(file);
+	
+	Contacts_Init();
 }
 
 int Contacts_Save(struct contacts_s *contact)

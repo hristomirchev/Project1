@@ -7,7 +7,7 @@
 
 #define UP		72
 #define DOWN	80
-#define RETURN		13
+#define RETURN	13
 #define ESC		27
 
 int lastRecord;
