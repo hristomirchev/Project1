@@ -32,15 +32,20 @@ void Menu_InitMain()
 	node_Main5.handlerFunc = ApplicationExit;
 	node_Main5.child = NULL;
 
+	node_Main8.name = "Discard Changes";
+	node_Main8.handlerFunc = Contacts_DiscardChanges;
+	node_Main8.child = NULL;
+
 	elements_Main[0] = &node_Main1;
 	elements_Main[1] = &node_Main2;
 	elements_Main[2] = &node_Main6;
 	elements_Main[3] = &node_Main3;
 	elements_Main[4] = &node_Main4;
 	elements_Main[5] = &node_Main7;
-	elements_Main[6] = &node_Main5;
+	elements_Main[6] = &node_Main8;
+	elements_Main[7] = &node_Main5;
 
-	menu_Main.length = 7;
+	menu_Main.length = 8;
 	menu_Main.parent = NULL;
 	menu_Main.menuArray = elements_Main;
 }
@@ -48,11 +53,11 @@ void Menu_InitMain()
 void Menu_InitEditContact()
 {
 	node_EditContact1.name = "Edit by ID";
-	node_EditContact1.handlerFunc = NULL;
+	node_EditContact1.handlerFunc = Contacts_EditByID;
 	node_EditContact1.child = NULL;
 
 	node_Editcontact2.name = "Search in contacts";
-	node_Editcontact2.handlerFunc = NULL;
+	node_Editcontact2.handlerFunc = Contacts_EditBySearch;
 	node_Editcontact2.child = NULL;
 
 	elements_EditContact[0] = &node_EditContact1;

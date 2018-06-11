@@ -22,6 +22,9 @@ void Contacts_Delete();
 void Contacts_ConfirmDelete();
 void Contacts_Read();
 void Contacts_Search();
+void Contacts_EditByID();
+void Contacts_EditBySearch();
+void Contacts_DiscardChanges();
 
 void Contacts_WriteToFile();
 void Contacts_ReadFromFile();

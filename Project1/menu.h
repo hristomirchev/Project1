@@ -57,7 +57,8 @@ struct menuItem_s node_Main4;
 struct menuItem_s node_Main5;
 struct menuItem_s node_Main6;
 struct menuItem_s node_Main7;
-struct menuItem_s *elements_Main[7];
+struct menuItem_s node_Main8;
+struct menuItem_s *elements_Main[8];
 struct menu_s menu_Main;
 
 struct menuItem_s node_EditContact1;
