@@ -53,7 +53,9 @@ struct menuItem_s node_Main2;
 struct menuItem_s node_Main3;
 struct menuItem_s node_Main4;
 struct menuItem_s node_Main5;
-struct menuItem_s *elements_Main[5];
+struct menuItem_s node_Main6;
+struct menuItem_s node_Main7;
+struct menuItem_s *elements_Main[7];
 
 struct menu_s menu_Main;
 

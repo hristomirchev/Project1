@@ -14,7 +14,7 @@ void ApplicationExit()
 
 int main()
 {
-	Contacts_Init(&Contact);
+	Contacts_Init(&Contacts);
 
 	Menu_Init();
 	MenuInit_Main();

@@ -8,23 +8,47 @@
  * @param	: contacts_s *contact
  * @retval	: None 
  */
-void Contacts_Init(struct contacts_s *contact)
+void Contacts_Init()
 {
-	strcpy_s(contact->firstName, sizeof("Name"),"Name");
-	strcpy_s(contact->lastName, sizeof("Last"), "Last");
-	strcpy_s(contact->EGN, sizeof("123467"), "123467");
-	strcpy_s(contact->phoneNumber, sizeof("12345"), "12345");
+	lastRecord = 0;
+	for (int i = 0; i < 100; i++)
+	{
+		strcpy(Contacts[i].firstName, "");
+		strcpy(Contacts[i].lastName, "");
+		strcpy(Contacts[i].EGN, "");
+		strcpy(Contacts[i].phoneNumber, "");
+	}
 }
 
-/* @brief	: Add contact in the file
- * @param:	: contacts_s *contact
- * @retval	: integer
-*/
+/* @brief	: Add contact to the structure.
+ * @param	: struct contacts_s **contact
+ * @retval	: None
+ */
 void Contacts_Add()
+{
+	system("cls");
+
+	char buffer[21] = "";
+	printf(" Enter first name: ");
+	scanf("%20s", Contacts[lastRecord].firstName);
+	printf(" Enter last name: ");
+	scanf("%20s", Contacts[lastRecord].lastName);
+	printf(" Enter phone number: ");
+	scanf("%15s", Contacts[lastRecord].phoneNumber);
+	printf(" Enter EGN: ");
+	scanf("%11s", Contacts[lastRecord].EGN);
+
+	lastRecord++;
+}
+
+/* @brief	: Write contacts array to file.
+ * @retval	: None
+*/
+void Contacts_WriteToFile()
 {
 	int size;
 	FILE *file;
-	fopen_s(&file, "Data.dat", "a");
+	fopen_s(&file, "Data.dat", "w");
 
 	fseek(file, 0, SEEK_END);
 	size = ftell(file);
@@ -35,8 +59,9 @@ void Contacts_Add()
 		{
 			fwrite("\r", sizeof("\r"), 1, file);
 		}
-		fwrite(&Contact, sizeof(struct contacts_s), 1, file);
+		fwrite(&Contacts, sizeof(struct contacts_s), 4, file);
 		fclose(file);
+		
 	}
 }
 
@@ -50,14 +75,23 @@ void Contacts_Read()
 	fopen_s(&file, "Data.dat", "r");
 
 	system("cls");
-	while (fread(&Contact, sizeof(struct contacts_s), 3, file))
+
+	const char *firstName = "First Name";
+	printf("%20s%20s%15s%15s\n", "First Name", "Last Name", "Phone Number", "EGN");
+
+	int i = 1;
+
+	//fscanf("%*s, %*s, %*s, %*s", 20, Contacts[i].firstName, 20, Contacts[i].lastName, 15, Contacts[i].phoneNumber, 11, Contacts[i].EGN);
+
+	fread(&Contacts, sizeof(Contacts), 1, file);
 	{
-		printf("\n First Name\t: %s", Contact.firstName);
-		printf("\n Last Name\t: %s", Contact.lastName);
-		printf("\n PhoneNumber\t: %s", Contact.phoneNumber);
-		printf("\n EGN\t\t: %s\n", Contact.EGN);
+		printf("\n%*s", 20, Contacts[i].firstName);
+		printf("%*s", 20, Contacts[i].lastName);
+		printf("%*s", 15, Contacts[i].phoneNumber);
+		printf("%*s", 11, Contacts[i].EGN);
 	}
-	getchar();
+	fclose(file);
+	while (_getch() != ESC);
 }
 
 int Contacts_Edit(struct contacts_s *contact)
@@ -65,9 +99,11 @@ int Contacts_Edit(struct contacts_s *contact)
 	return 0;
 }
 
-int Contacts_Remove(struct contacts_s *contact)
+void Contacts_Remove()
 {
-	return 0;
+	FILE *file;
+	fopen_s(&file, "Data.dat", "w");
+	fclose(file);
 }
 
 int Contacts_Save(struct contacts_s *contact)
